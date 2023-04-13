@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main() {
+    int arr[100], n, i, index;
+
+    // Input the size of array
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    // Input the elements of array
+    printf("Enter the elements of the array: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Input the index of the element to be deleted
+    printf("Enter the index of the element to be deleted: ");
+    scanf("%d", &index);
+
+    // Delete the element from the array
+    if (index >= n || index < 0) {
+        printf("Invalid index!\n");
+    } else {
+        for (i = index; i < n - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        n--;
+        printf("Element deleted successfully!\n");
+    }
+
+    // Print the updated array
+    printf("Updated array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
