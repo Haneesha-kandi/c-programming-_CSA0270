@@ -1,45 +1,104 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-int is_anagram(char a[], char b[]) { 
-  // if length of both strings is not equal return 0 as they are not anagrams
-  if (strlen(a) != strlen(b)) {
-    return 0;
-  }
+#define MAX_BOOKS 100
 
-  int i = 0;
-  int freq_a[26] = {0};
-  int freq_b[26] = {0};
-  // storing frequency of each character in freq arrays of two different strings.
-  for (i = 0; a[i] && b[i]; i++) {
-    freq_a[a[i] - 97]++;
-    freq_b[b[i] - 97]++;
-  }
-  // if the number of occurrences of all characters is same return 1 else, returns 0.
-  for (i = 0; i < 26; i++) {
-    if (freq_a[i] != freq_b[i]) {
-      return 0;
+struct book {
+    char title[50];
+    char author[50];
+    int year_published;
+};
+
+struct book library[MAX_BOOKS];
+int num_books = 0;
+
+void add_book() {
+    if (num_books >= MAX_BOOKS) {
+        printf("Library is full.\n");
+        return;
     }
-  }
 
-  return 1;
+    struct book new_book;
+    printf("Enter the book title: ");
+    scanf("%s", new_book.title);
+    printf("Enter the book author: ");
+    scanf("%s", new_book.author);
+    printf("Enter the year the book was published: ");
+    scanf("%d", &new_book.year_published);
+
+    library[num_books] = new_book;
+    num_books++;
+}
+
+void display_books() {
+    if (num_books == 0) {
+        printf("Library is empty.\n");
+        return;
+    }
+
+    printf("Books in library:\n");
+    for (int i = 0; i < num_books; i++) {
+        printf("%s by %s (%d)\n", library[i].title, library[i].author, library[i].year_published);
+    }
+}
+
+void list_books_by_author() {
+    char author[50];
+    printf("Enter the author's name: ");
+    scanf("%s", author);
+
+    int count = 0;
+    printf("Books by %s:\n", author);
+    for (int i = 0; i < num_books; i++) {
+        if (strcmp(library[i].author, author) == 0) {
+            printf("%s (%d)\n", library[i].title, library[i].year_published);
+            count++;
+        }
+    }
+
+    if (count == 0) {
+        printf("No books by %s found.\n", author);
+    }
+}
+
+void count_books() {
+    printf("The library has %d books.\n", num_books);
 }
 
 int main() {
-  char a[50], b[50];
+    int choice;
 
-  printf("Enter first string : ");
-  scanf("%s", a); // first string
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Add book details.\n");
+        printf("2. Display book details.\n");
+        printf("3. List all books of given author.\n");
+        printf("4. List the count of books in the library.\n");
+        printf("5. Exit.\n");
 
-  printf("Enter second string : ");
-  scanf("%s", b); // second string
-  // calling function to check whether strings are anagram or not. if it returns 1 strings are 
-  // anagram otherwise not.
-  if (is_anagram(a, b) == 1) {
-    printf("Two strings are an anagram to each other");
-  } else {
-    printf("Two strings are not an anagram to each other");
-  }
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
 
-  return 0;
+        switch (choice) {
+            case 1:
+                add_book();
+                break;
+            case 2:
+                display_books();
+                break;
+            case 3:
+                list_books_by_author();
+                break;
+            case 4:
+                count_books();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+
+    return 0;
 }
