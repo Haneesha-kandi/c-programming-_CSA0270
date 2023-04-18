@@ -1,16 +1,33 @@
-#include <stdio.h>
-int hcf(int n1, int n2);
-int main() {
-    int n1, n2;
-    printf("Enter two positive integers: ");
-    scanf("%d %d", &n1, &n2);
-    printf("G.C.D of %d and %d is %d.", n1, n2, hcf(n1, n2));
-    return 0;
-}
+#include < stdio.h >
+# include < conio.h >
+struct  student
+{
+int roll_num ; char name[20] ; struct Date
+{
+      int D ;
+      int M ;
+      int Y ;
+} bd, ad ;
+} ;
 
-int hcf(int n1, int n2) {
-    if (n2 != 0)
-        return hcf(n2, n1 % n2);
-    else
-        return n1;
+int  main( )
+{
+int r ;
+struct student a ;
+printf("\n Enter Student Details\n" ) ;
+printf("----------------------------------------------------\n" ) ;
+printf(" Enter Roll-Number : ") ;
+scanf("%d", &a.roll_num ) ;
+printf(" Enter Name : " ) ;
+scanf("%s",a.name ) ;
+printf(" Enter Birth-Date : ") ;
+scanf("%d-%d-%d", &a.bd.D, &a.bd.M, &a.bd.Y ) ;
+printf(" Enter Admission-Date : ") ;
+scanf("%d-%d-%d", &a.ad.D, &a.ad.M, &a.ad.Y) ;
+r = a.ad.Y-a.bd.Y ;
+printf("----------------------------------------------------\n") ;
+printf("\n Approximate Age of Student at the Time of Admission\n") ;
+printf("----------------------------------------------------\n") ;
+printf("\t%d Years", r) ;
+return 0 ;
 }
